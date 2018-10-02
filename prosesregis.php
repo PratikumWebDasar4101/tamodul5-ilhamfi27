@@ -3,9 +3,7 @@ session_start();
 if(!isset($_SESSION['data_mhs'])){
 	$data_mhs = array();
 } else {
-  if ($data_mhs != $_SESSION['data_mhs'];) {
-    $data_mhs = $_SESSION['data_mhs'];
-  }
+  $data_mhs = $_SESSION['data_mhs'];
 }
 if (isset($_POST['submit'])) {
 	$nim 	= isset($_POST['nim']) ? $_POST['nim'] : "";
@@ -44,7 +42,7 @@ if (isset($_POST['submit'])) {
           'program_studi' => $program_studi,
           'fakultas' => $fakultas,
           'hobby' => $hobby,
-  				'photo' => $photo_storage.$file_name;
+  				'photo' => $photo_storage.$file_name
   			);
   	array_push($data_mhs, $new_data);
   	$_SESSION['data_mhs'] = $data_mhs;
@@ -58,24 +56,35 @@ if (isset($_POST['submit'])) {
     <title>Data Registrasi</title>
   </head>
   <body>
-    <table>
+    <table border="1">
     	<tr>
     		<th>NIM</th>
     		<th>Nama</th>
     		<th>Email</th>
+        <th>Jenis Kelamin</th>
+    		<th>Fakultas</th>
+    		<th>Program Studi</th>
+    		<th>Hobby</th>
+    		<th>Foto</th>
     	</tr>
     	<?php
     	$data = $_SESSION['data_mhs'];
-    	$num = 0;
-    	while ($num < count($data)) {
+    	$x = 0;
+    	while ($x < count($data)) {
+        $hobby = implode(", ", $data[$x]['hobby']);
     	?>
     	<tr>
-    		<td><?php echo $data[$num]['nim']; ?></td>
-    		<td><?php echo $data[$num]['nama']; ?></td>
-    		<td><?php echo $data[$num]['email']; ?></td>
+    		<td><?php echo $data[$x]['nim']; ?></td>
+    		<td><?php echo $data[$x]['nama']; ?></td>
+    		<td><?php echo $data[$x]['email']; ?></td>
+    		<td><?php echo $data[$x]['jenis_kelamin']; ?></td>
+    		<td><?php echo $data[$x]['fakultas']; ?></td>
+    		<td><?php echo $data[$x]['program_studi']; ?></td>
+    		<td><?php echo $hobby; ?></td>
+    		<td><img src="<?php echo $data[$x]['photo']; ?>" width="200"></td>
     	</tr>
     	<?php
-    	$num++;
+    	$x++;
     	}
     	?>
     </table>
